@@ -5,112 +5,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Архип Куинджи — Художник Света</title>
     <style>
-        /* =========================================
-           БАЗОВЫЕ ЦВЕТА И НАСТРОЙКИ
-           ========================================= */
         :root {
-            --bg-base: #f7ede2;          /* Основной теплый фон */
-            --frame-color: #e6d5c3;      /* Темная слоновая кость (для рамок) */
-            --text-dark: #2c3e50;        /* Глубокий синий/серый для текста */
-            --accent: #c9b07a;           /* Золотистый акцент */
+            --bg-base: #f7ede2;
+            --frame-color: #e6d5c3;
+            --text-dark: #2c3e50;
+            --accent: #c9b07a;
         }
-
-        body, html {
-            margin: 0; padding: 0;
-            font-family: 'Georgia', serif;
-            color: var(--text-dark);
-            background-color: var(--bg-base); 
-            overflow-x: hidden;
-            scroll-behavior: smooth;
-        }
+        body, html { margin: 0; padding: 0; font-family: 'Georgia', serif; color: var(--text-dark); background-color: var(--bg-base); overflow-x: hidden; scroll-behavior: smooth; }
         h1, h2 { font-weight: normal; margin: 0; }
         * { box-sizing: border-box; }
-
         .content-wrapper { position: relative; z-index: 1; }
-
-        /* =========================================
-           БЛОК 1 — ГЛАВНЫЙ ЭКРАН
-           ========================================= */
-        #block1 {
-            position: relative; min-height: 100svh; 
-            display: flex; flex-direction: column; justify-content: flex-end; 
-            padding: 20px; padding-bottom: 8vh; 
-            background-image: url('img/portrait.jpg'); 
-            background-size: cover; background-position: center top; 
-        }
-        
-        #block1 .overlay {
-            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(to bottom, rgba(247,237,226,0.1) 0%, rgba(247,237,226,0.7) 60%, var(--bg-base) 100%);
-        }
-        
-        .light-shadows-b1 {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at 50% 30%, rgba(255,255,255,0.3) 0%, transparent 60%);
-            animation: lightPulse 8s infinite alternate ease-in-out; pointer-events: none;
-        }
+        #block1 { position: relative; min-height: 100svh; display: flex; flex-direction: column; justify-content: flex-end; padding: 20px; padding-bottom: 8vh; background-image: url('img/portrait.jpg'); background-size: cover; background-position: center top; }
+        #block1 .overlay { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(to bottom, rgba(247,237,226,0.1) 0%, rgba(247,237,226,0.7) 60%, var(--bg-base) 100%); }
+        .light-shadows-b1 { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at 50% 30%, rgba(255,255,255,0.3) 0%, transparent 60%); animation: lightPulse 8s infinite alternate ease-in-out; pointer-events: none; }
         @keyframes lightPulse { 0% { opacity: 0.5; transform: scale(0.95); } 100% { opacity: 1; transform: scale(1.05); } }
-        
         #block1 .content { position: relative; text-align: center; max-width: 600px; margin: 0 auto; width: 100%; }
         #block1 h1 { font-size: clamp(32px, 8vw, 48px); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px; }
         #block1 .subtitle { font-size: clamp(16px, 4.5vw, 20px); font-style: italic; color: #555; margin-bottom: 10px; }
-        
-        .play-btn-main {
-            background: rgba(255, 255, 255, 0.9); color: var(--text-dark); border: 1px solid var(--text-dark);
-            padding: 14px 24px; border-radius: 30px; cursor: pointer; font-size: 14px; font-family: 'Arial', sans-serif;
-            letter-spacing: 1px; text-transform: uppercase; display: inline-flex; align-items: center; gap: 10px;
-            margin-top: 15px; transition: all 0.3s;
-        }
+        .play-btn-main { background: rgba(255, 255, 255, 0.9); color: var(--text-dark); border: 1px solid var(--text-dark); padding: 14px 24px; border-radius: 30px; cursor: pointer; font-size: 14px; font-family: 'Arial', sans-serif; letter-spacing: 1px; text-transform: uppercase; display: inline-flex; align-items: center; gap: 10px; margin-top: 15px; transition: all 0.3s; }
         .play-btn-main.playing { background: var(--accent); color: #fff; border-color: var(--accent); }
-        
         .quote-container { margin-top: 20px; height: 60px; position: relative; display: flex; justify-content: center; align-items: center; }
         .dynamic-quote { position: absolute; font-size: clamp(14px, 4vw, 16px); font-style: italic; opacity: 0; transition: opacity 1s ease; width: 100%; text-align: center; }
-        
         .scroll-indicator { margin-top: 20px; font-family: 'Arial', sans-serif; font-size: 11px; text-transform: uppercase; letter-spacing: 2px; color: #888; animation: bounce 2s infinite ease-in-out; }
         @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(8px); } }
-
-        /* =========================================
-           МИНИМАЛИСТИЧНЫЙ ПЛЕЕР 
-           ========================================= */
         .minimal-player { display: flex; flex-direction: column; gap: 10px; margin: 0 auto 30px auto; width: 100%; max-width: 300px; }
-        .minimal-play-btn {
-            background: none; border: none; padding: 0; margin: 0;
-            color: var(--text-dark); font-family: 'Arial', sans-serif; font-size: 14px; font-weight: bold; text-transform: uppercase;
-            letter-spacing: 1px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 8px; transition: color 0.3s ease;
-        }
+        .minimal-play-btn { background: none; border: none; padding: 0; margin: 0; color: var(--text-dark); font-family: 'Arial', sans-serif; font-size: 14px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 8px; transition: color 0.3s ease; }
         .minimal-play-btn:hover { color: var(--accent); }
         .progress-bar-bg { width: 100%; height: 2px; background: rgba(44, 62, 80, 0.2); position: relative; border-radius: 2px; }
         .progress-bar-fill { position: absolute; top: 0; left: 0; height: 100%; width: 0%; background: var(--text-dark); border-radius: 2px; transition: width 0.1s linear; }
-
-        /* =========================================
-           БЛОК 2 — КУИНДЖИ КАК ЧЕЛОВЕК 
-           ========================================= */
-        #block2 { 
-            position: relative; padding: 40px 0 0 0; min-height: 1600px; overflow: hidden; 
-            display: flex; flex-direction: column; 
-        }
-        
-        .b2-photos-bg {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1;
-        }
-
-        .b2-photos-bg img { 
-            position: absolute; box-shadow: 0 15px 35px rgba(0,0,0,0.2); 
-            border: 8px solid var(--frame-color); 
-            border-radius: 2px; 
-            opacity: 1; 
-            will-change: transform;
-        }
-        
+        #block2 { position: relative; padding: 40px 0 0 0; min-height: 1600px; overflow: hidden; display: flex; flex-direction: column; }
+        .b2-photos-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
+        .b2-photos-bg img { position: absolute; box-shadow: 0 15px 35px rgba(0,0,0,0.2); border: 8px solid var(--frame-color); border-radius: 2px; opacity: 1; will-change: transform; }
         .photo4 { width: 35%; top: 40px; left: 3%; transform: rotate(-2deg); z-index: 1; }
         .photo1 { width: 35%; top: 350px; right: 3%; left: auto; transform: rotate(1.5deg); z-index: 2; }
         .photo2 { width: 35%; top: 480px; left: 3%; transform: rotate(-1deg); z-index: 3; }
         .photo3 { width: 35%; top: 850px; right: 3%; left: auto; transform: rotate(2deg); z-index: 4; }
         .photo5 { width: 35%; top: 1050px; left: 4%; transform: rotate(-2.5deg); z-index: 5; }
         .photo6 { width: 35%; top: 1200px; right: 3%; left: auto; transform: rotate(1.8deg); z-index: 6; }
-
         @media (max-width: 768px) {
-            #block2 { min-height: 1600px; } 
+            #block2 { min-height: 1600px; }
             .photo4 { width: 65%; top: 40px; left: 2%; transform: rotate(-1deg); }
             .photo1 { width: 65%; top: 350px; right: 2%; left: auto; transform: rotate(1deg); }
             .photo2 { width: 65%; top: 480px; left: 2%; transform: rotate(-0.5deg); }
@@ -118,116 +51,42 @@
             .photo5 { width: 65%; top: 1000px; left: 2%; transform: rotate(-1deg); }
             .photo6 { width: 65%; top: 1200px; right: 2%; left: auto; transform: rotate(1.5deg); }
         }
-
-        .b2-text-column {
-            position: relative; z-index: 10; max-width: 700px; margin: 0 auto; width: 100%;
-            /* Возвращаем прежнюю, более прозрачную подложку */
-            background: linear-gradient(to right, transparent, rgba(247,237,226,0.3) 15%, rgba(247,237,226,0.4) 50%, rgba(247,237,226,0.3) 85%, transparent);
-            backdrop-filter: blur(1px);
-            -webkit-backdrop-filter: blur(1px);
-            padding: 40px 20px 20px 20px;
-            flex-grow: 1; 
-        }
-
+        .b2-text-column { position: relative; z-index: 10; max-width: 700px; margin: 0 auto; width: 100%; background: linear-gradient(to right, transparent, rgba(247,237,226,0.3) 15%, rgba(247,237,226,0.4) 50%, rgba(247,237,226,0.3) 85%, transparent); backdrop-filter: blur(1px); -webkit-backdrop-filter: blur(1px); padding: 40px 20px 20px 20px; flex-grow: 1; }
         #block2 h2 { font-size: clamp(36px, 6vw, 46px); color: #8a6d3b; margin-bottom: 30px; font-style: italic; text-align: center; }
-        
-        .b2-quote { 
-            font-size: clamp(20px, 5vw, 24px); 
-            line-height: 1.5; 
-            padding-left: 20px; 
-            border-left: 3px solid var(--accent); 
-            opacity: 0; 
-            transform: translateY(30px); 
-            transition: opacity 1s ease, transform 1s ease; 
-            font-style: italic; 
-            margin-bottom: 90px; 
-            
-            /* Сохраняем новые настройки текста (насыщенность, цвет и сильное свечение) */
-            font-weight: 600; 
-            color: #151e27; 
-            text-shadow: 0 0 8px rgba(247,237,226, 1), 0 0 20px rgba(247,237,226, 0.9); 
-        }
+        .b2-quote { font-size: clamp(20px, 5vw, 24px); line-height: 1.5; padding-left: 20px; border-left: 3px solid var(--accent); opacity: 0; transform: translateY(30px); transition: opacity 1s ease, transform 1s ease; font-style: italic; margin-bottom: 90px; font-weight: 600; color: #151e27; text-shadow: 0 0 8px rgba(247,237,226, 1), 0 0 20px rgba(247,237,226, 0.9); }
         .b2-quote:last-child { margin-bottom: 20px; }
         .fade-in.visible { opacity: 1; transform: translateY(0); }
-
-        /* =========================================
-           ОЛИВКОВЫЕ ВЕТВИ (ПЕРЕХОД)
-           ========================================= */
-        .olive-transition {
-            position: relative; height: 100px; width: 100%; z-index: 5;
-            margin-top: -30px; 
-            overflow: visible;
-        }
-        .olive-branch { 
-            position: absolute; 
-            background-image: url('img/olive.png'); 
-            background-size: contain; 
-            background-repeat: no-repeat; 
-            background-position: center;
-            opacity: 0.8; 
-        }
-        
+        .olive-transition { position: relative; height: 100px; width: 100%; z-index: 5; margin-top: -30px; overflow: visible; }
+        .olive-branch { position: absolute; background-image: url('img/olive.png'); background-size: contain; background-repeat: no-repeat; background-position: center; opacity: 0.8; }
         .ob-1 { top: -40px; left: -10%; width: 220px; height: 150px; transform: rotate(15deg); }
         .ob-2 { top: 20px; right: -5%; width: 180px; height: 120px; transform: scaleX(-1) rotate(25deg); }
         .ob-3 { top: 60px; left: 35%; width: 150px; height: 100px; transform: rotate(70deg); }
         .ob-4 { top: 10px; right: 30%; width: 170px; height: 110px; transform: rotate(-15deg); }
         .ob-5 { top: 80px; left: 15%; width: 140px; height: 90px; transform: rotate(110deg); }
-
-        /* =========================================
-           БЛОК 3 — КАК КУИНДЖИ СОЗДАВАЛ СВЕТ
-           ========================================= */
         #block3 { position: relative; padding: 20px 20px 100px 20px; z-index: 10; }
         .b3-container { max-width: 1000px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; }
-        
         #block3 h2 { font-size: clamp(32px, 6vw, 42px); text-align: center; margin-bottom: 10px; font-style: italic; }
         #block3 .subtitle { font-size: clamp(16px, 4vw, 20px); color: #555; text-align: center; margin-bottom: 40px; }
-        
         .slider-wrapper { width: 100%; max-width: 900px; position: relative; margin-bottom: 60px; }
-        .comparison-slider { 
-            position: relative; width: 100%; height: 500px; overflow: hidden; 
-            border-radius: 4px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); 
-            border: 10px solid var(--frame-color); 
-        }
+        .comparison-slider { position: relative; width: 100%; height: 500px; overflow: hidden; border-radius: 4px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); border: 10px solid var(--frame-color); }
         .image-background, .image-foreground { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-size: cover; background-position: center; }
         .image-foreground { width: 100%; border-right: none; }
         .slider-input { position: absolute; -webkit-appearance: none; appearance: none; width: 100%; height: 100%; background: transparent; outline: none; margin: 0; top: 0; left: 0; cursor: ew-resize; z-index: 10; }
-        
-        .slider-hint { text-align: center; font-size: 14px; text-transform: uppercase; letter-spacing: 2px; color: #8a6d3b; margin-top: 15px; font-family: 'Arial', sans-serif; font-weight: bold; animation: hintPulse 2s infinite ease-in-out;}
+        .slider-hint { text-align: center; font-size: 14px; text-transform: uppercase; letter-spacing: 2px; color: #8a6d3b; margin-top: 15px; font-family: 'Arial', sans-serif; font-weight: bold; animation: hintPulse 2s infinite ease-in-out; }
         @keyframes hintPulse { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
-
         .archive-grid { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 15px; width: 100%; margin-top: 40px; }
-        
-        .card { 
-            background: var(--bg-base); 
-            padding: 10px; padding-bottom: 25px; border-radius: 2px;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.12); position: relative; overflow: hidden;
-            opacity: 0; transform: translateY(40px); transition: all 1s cubic-bezier(0.25, 0.8, 0.25, 1);
-        }
+        .card { background: var(--bg-base); padding: 10px; padding-bottom: 25px; border-radius: 2px; box-shadow: 0 15px 40px rgba(0,0,0,0.12); position: relative; overflow: hidden; opacity: 0; transform: translateY(40px); transition: all 1s cubic-bezier(0.25, 0.8, 0.25, 1); }
         .card.visible { opacity: 1; transform: translateY(0) rotate(var(--rot)); }
-        
-        .card::after {
-            content: ''; position: absolute; top: 0; left: -150%; width: 50%; height: 100%;
-            background: linear-gradient(to right, transparent, rgba(255,255,255,0.7), transparent);
-            transform: skewX(-25deg); animation: lightSweep 6s infinite; pointer-events: none;
-        }
+        .card::after { content: ''; position: absolute; top: 0; left: -150%; width: 50%; height: 100%; background: linear-gradient(to right, transparent, rgba(255,255,255,0.7), transparent); transform: skewX(-25deg); animation: lightSweep 6s infinite; pointer-events: none; }
         @keyframes lightSweep { 0%, 50% { left: -100%; } 100% { left: 200%; } }
-
         .card-1, .card-2, .card-3 { border: 14px solid var(--frame-color); }
-
-        .card-4 { 
-            border: 8px solid var(--frame-color); 
-            width: 360px; --rot: 3deg; margin-top: 30px; margin-left: -10px; padding: 35px; 
-            background: var(--text-dark); color: #fff; display: flex; align-items: center; justify-content: center; text-align: center; 
-        }
-
+        .card-4 { border: 8px solid var(--frame-color); width: 360px; --rot: 3deg; margin-top: 30px; margin-left: -10px; padding: 35px; background: var(--text-dark); color: #fff; display: flex; align-items: center; justify-content: center; text-align: center; }
         .card img { width: 100%; height: auto; display: block; margin-bottom: 15px; background: var(--frame-color); }
         .card p { font-size: 18px; font-style: italic; color: #333; line-height: 1.6; text-align: center; margin: 0; border-top: 1px solid var(--frame-color); padding-top: 15px; }
-
         .card-1 { width: 340px; --rot: -6deg; margin-top: 10px; margin-right: -20px; }
         .card-2 { width: 380px; --rot: 5deg; margin-top: 50px; margin-left: -30px; }
         .card-3 { width: 320px; --rot: -7deg; margin-top: -20px; margin-right: -15px; }
         .card-4 p { color: #fff; border-top: none; font-size: 20px; padding: 0; }
-
         @media (max-width: 768px) {
             .comparison-slider { height: 320px; }
             .card { width: 100% !important; margin-top: -10px !important; margin-left: 0 !important; margin-right: 0 !important; }
@@ -236,62 +95,21 @@
             .card-3 { --rot: -3deg !important; }
             .card-4 { --rot: 1deg !important; }
         }
-
-        /* =========================================
-           БЛОК 4 — ПЕРЕХОД В РЕСТОРАН
-           ========================================= */
-        #block4 {
-            position: relative; min-height: 80svh; display: flex; justify-content: center; align-items: center;
-            background-image: url('img/greek-resto.jpg'); background-size: cover; background-position: center;
-            text-align: center; padding: 60px 20px; z-index: 2;
-        }
+        #block4 { position: relative; min-height: 80svh; display: flex; justify-content: center; align-items: center; background-image: url('img/greek-resto.jpg'); background-size: cover; background-position: center; text-align: center; padding: 60px 20px; z-index: 2; }
         #block4 .overlay { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(247, 237, 226, 0.85); z-index: 1; }
         .b4-content { position: relative; z-index: 2; max-width: 650px; width: 100%; }
-        
         #block4 h2 { font-size: clamp(28px, 5vw, 42px); color: #8a6d3b; margin-bottom: 10px; font-style: italic; }
         #block4 .subtitle { font-size: 20px; font-style: italic; margin-bottom: 40px; }
-        
-        /* Табличка с Меандром */
-        .promo-box { 
-            background: #fff; 
-            padding: 35px 30px; 
-            border-radius: 2px; 
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1); 
-            border: 2px solid var(--frame-color); /* Внешняя рамка */
-            position: relative;
-        }
-        
-        /* Внутренняя золотая рамка */
-        .promo-box::before {
-            content: '';
-            position: absolute;
-            top: 8px; left: 8px; right: 8px; bottom: 8px;
-            border: 1px solid rgba(201, 176, 122, 0.5); /* Цвет --accent полупрозрачный */
-            pointer-events: none;
-        }
-
+        .promo-box { background: #fff; padding: 35px 30px; border-radius: 2px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); border: 2px solid var(--frame-color); position: relative; }
+        .promo-box::before { content: ''; position: absolute; top: 8px; left: 8px; right: 8px; bottom: 8px; border: 1px solid rgba(201, 176, 122, 0.5); pointer-events: none; }
         .promo-box p { font-size: 16px; color: #444; line-height: 1.6; margin-bottom: 25px; }
         .promo-code { display: inline-block; background: var(--text-dark); color: #fff; padding: 15px 30px; font-family: 'Arial', sans-serif; font-size: 18px; letter-spacing: 3px; font-weight: bold; margin-bottom: 15px; border-radius: 2px; }
         .promo-box .hint { display: block; font-size: 12px; color: #888; font-family: 'Arial', sans-serif; text-transform: uppercase; letter-spacing: 1px; }
-
-        /* Линии меандра сверху и снизу текста */
-        .meander-line {
-            height: 15px; width: 100%;
-            background-image: url('data:image/svg+xml;utf8,<svg width="60" height="15" viewBox="0 0 60 15" xmlns="http://www.w3.org/2000/svg"><path d="M0,14 H15 V2 H5 V10 H11 V6 H9 M15,14 H30 V2 H20 V10 H26 V6 H24 M30,14 H45 V2 H35 V10 H41 V6 H39 M45,14 H60 V2 H50 V10 H56 V6 H54" fill="none" stroke="%23c9b07a" stroke-width="1.5"/></svg>');
-            background-repeat: repeat-x;
-            background-position: center;
-            margin-bottom: 25px;
-            opacity: 0.8;
-        }
-        .meander-line.bottom {
-            margin-bottom: 0;
-            margin-top: 25px;
-            transform: scaleY(-1); /* Отражаем меандр по вертикали для симметрии */
-        }
+        .meander-line { height: 15px; width: 100%; background-image: url('data:image/svg+xml;utf8,<svg width="60" height="15" viewBox="0 0 60 15" xmlns="http://www.w3.org/2000/svg"><path d="M0,14 H15 V2 H5 V10 H11 V6 H9 M15,14 H30 V2 H20 V10 H26 V6 H24 M30,14 H45 V2 H35 V10 H41 V6 H39 M45,14 H60 V2 H50 V10 H56 V6 H54" fill="none" stroke="%23c9b07a" stroke-width="1.5"/></svg>'); background-repeat: repeat-x; background-position: center; margin-bottom: 25px; opacity: 0.8; }
+        .meander-line.bottom { margin-bottom: 0; margin-top: 25px; transform: scaleY(-1); }
     </style>
 </head>
 <body>
-
     <div class="content-wrapper">
         
         <div id="block1">
@@ -301,7 +119,7 @@
                 <h1>Архип Куинджи</h1>
                 <p class="subtitle">Художник, который научился писать свет.</p>
                 <button class="play-btn-main" onclick="togglePlay('audio1', this)">▶︎ Слушать историю</button>
-                <audio id="audio1" src="audio/block1.mp3"></audio>
+                <audio id="audio1" src="https://cdn.jsdelivr.net/gh/ksandopuloefim-netizen/kuindzhigallery@main/audio/Block1.mp3"></audio>
                 <div class="quote-container">
                     <div class="dynamic-quote" id="q1">«Его картины словно светились изнутри.»</div>
                     <div class="dynamic-quote" id="q2">«Люди не понимали, где заканчивается краска и начинается свет.»</div>
@@ -321,17 +139,14 @@
                 <img src="img/photo5.jpg" class="photo5 parallax-img" data-speed="0.05" alt="Архив 5">
                 <img src="img/photo6.jpg" class="photo6 parallax-img" data-speed="0.04" alt="Архив 6">
             </div>
-
             <div class="b2-text-column">
                 <h2>Куинджи как человек</h2>
-                
                 <div class="minimal-player">
                     <button class="minimal-play-btn" onclick="togglePlay('audio2', this)">▶︎ Слушать историю художника</button>
                     <div class="progress-bar-bg"><div class="progress-bar-fill" id="progress2"></div></div>
-                    <audio id="audio2" src="audio/block2.mp3"></audio>
+                    <audio id="audio2" src="https://cdn.jsdelivr.net/gh/ksandopuloefim-netizen/kuindzhigallery@main/audio/Block2.mp3"></audio>
                 </div>
-                
-                <div class="b2-quote fade-in">«Куинджи был греческого происхождения. Фамилия его с урумского означает “золотых дел мастер”».</div>
+                <div class="b2-quote fade-in">«Куинджи был греческого происхождения. Фамилия его с урумского означает "золотых дел мастер"».</div>
                 <div class="b2-quote fade-in">«Он родился в семье грека, в Мариуполе у моря и всю жизнь искал идеальный свет».</div>
                 <div class="b2-quote fade-in">«Современники говорили, что его картины светятся изнутри».</div>
                 <div class="b2-quote fade-in">«Он скрывал секреты своих красок даже от друзей».</div>
@@ -353,13 +168,11 @@
             <div class="b3-container">
                 <h2>Как Куинджи создавал свет</h2>
                 <p class="subtitle">«Он писал не пейзаж, а ощущение света.»</p>
-                
                 <div class="minimal-player" style="align-items: center; margin-bottom: 40px;">
                     <button class="minimal-play-btn" onclick="togglePlay('audio3', this)">▶︎ Слушать о технике художника</button>
                     <div class="progress-bar-bg"><div class="progress-bar-fill" id="progress3"></div></div>
-                    <audio id="audio3" src="audio/block3.mp3"></audio>
+                    <audio id="audio3" src="https://cdn.jsdelivr.net/gh/ksandopuloefim-netizen/kuindzhigallery@main/audio/Block3.mp3"></audio>
                 </div>
-
                 <div class="slider-wrapper">
                     <div class="comparison-slider">
                         <div class="image-background" style="background-image: url('img/moon_dark.jpg');"></div>
@@ -368,23 +181,19 @@
                     </div>
                     <div class="slider-hint">← Подвиньте ползунок →</div>
                 </div>
-
                 <div class="archive-grid">
                     <div class="card card-1 fade-in">
                         <img src="img/card_moon.jpg" alt="Луна">
                         <p>«Источник света почти всегда скрыт,<br>но ощущается физически.»</p>
                     </div>
-                    
                     <div class="card card-2 fade-in">
                         <img src="img/card_water.jpg" alt="Отражение">
-                        <p>«Куинджи усиливал отражения,<br>чтобы свет “двигался”.»</p>
+                        <p>«Куинджи усиливал отражения,<br>чтобы свет "двигался".»</p>
                     </div>
-
                     <div class="card card-3 fade-in">
                         <img src="img/card_texture.jpg" alt="Текстура">
                         <p>«Он работал слоями,<br>создавая глубину свечения.»</p>
                     </div>
-
                     <div class="card card-4 fade-in">
                         <p>В темном выставочном зале 1880 года<br><br><span style="color:var(--accent);">«Зрители заглядывали за холст,<br>пытаясь найти спрятанную лампу.»</span></p>
                     </div>
@@ -409,52 +218,26 @@
     </div>
 
     <script>
-        // ИСПРАВЛЕННАЯ ЛОГИКА ПЛЕЕРА (Пауза теперь работает идеально)
         function togglePlay(audioId, btnElement) {
             const targetAudio = document.getElementById(audioId);
-            const isTargetPlaying = !targetAudio.paused; 
-
-            // Останавливаем все ДРУГИЕ аудио
-            document.querySelectorAll('audio').forEach(a => {
-                if (a.id !== audioId) {
-                    a.pause();
-                }
-            });
-
-            // Сбрасываем текст на всех ДРУГИХ кнопках
+            const isTargetPlaying = !targetAudio.paused;
+            document.querySelectorAll('audio').forEach(a => { if (a.id !== audioId) a.pause(); });
             const btn1 = document.querySelector('.play-btn-main');
-            if (btn1 && btn1 !== btnElement) { 
-                btn1.innerHTML = '▶︎ Слушать историю'; 
-                btn1.classList.remove('playing'); 
-            }
-            
+            if (btn1 && btn1 !== btnElement) { btn1.innerHTML = '▶︎ Слушать историю'; btn1.classList.remove('playing'); }
             document.querySelectorAll('.minimal-play-btn').forEach(btn => {
                 if (btn !== btnElement) {
                     const originalText = btn.getAttribute('onclick').includes('audio2') ? '▶︎ Слушать историю художника' : '▶︎ Слушать о технике художника';
                     btn.innerHTML = originalText;
                 }
             });
-
-            // Включаем или ставим на паузу ЦЕЛЕВОЕ аудио
             if (isTargetPlaying) {
-                targetAudio.pause(); // Ставим на паузу без сброса времени
-                
-                // Возвращаем кнопке статус "Play"
-                if (btnElement.classList.contains('play-btn-main')) {
-                    btnElement.innerHTML = '▶︎ Слушать историю';
-                    btnElement.classList.remove('playing');
-                } else {
-                    const originalText = btnElement.getAttribute('onclick').includes('audio2') ? '▶︎ Слушать историю художника' : '▶︎ Слушать о технике художника';
-                    btnElement.innerHTML = originalText;
-                }
+                targetAudio.pause();
+                if (btnElement.classList.contains('play-btn-main')) { btnElement.innerHTML = '▶︎ Слушать историю'; btnElement.classList.remove('playing'); }
+                else { const originalText = btnElement.getAttribute('onclick').includes('audio2') ? '▶︎ Слушать историю художника' : '▶︎ Слушать о технике художника'; btnElement.innerHTML = originalText; }
             } else {
-                targetAudio.play(); // Продолжаем играть с текущего места
-                
-                // Меняем кнопку на "Пауза"
+                targetAudio.play();
                 btnElement.innerHTML = '⏸︎ Пауза';
-                if (btnElement.classList.contains('play-btn-main')) {
-                    btnElement.classList.add('playing');
-                }
+                if (btnElement.classList.contains('play-btn-main')) btnElement.classList.add('playing');
             }
         }
 
@@ -469,7 +252,6 @@
             else if (progress > 0.75 && progress <= 0.98) quotes[3].style.opacity = 1;
         });
 
-        // Корректный сброс кнопок по окончании трека
         document.querySelectorAll('audio').forEach(audio => {
             if (audio.id !== 'audio1') {
                 const progressBar = document.getElementById('progress' + audio.id.slice(-1));
@@ -478,16 +260,10 @@
                     progressBar.style.width = percent + '%';
                 });
             }
-            
             audio.addEventListener('ended', () => {
                 const btn = document.querySelector(`button[onclick*="'${audio.id}'"]`);
-                if (audio.id === 'audio1') {
-                    btn.innerHTML = '▶︎ Слушать историю';
-                    btn.classList.remove('playing');
-                } else {
-                    const originalText = audio.id === 'audio2' ? '▶︎ Слушать историю художника' : '▶︎ Слушать о технике художника';
-                    btn.innerHTML = originalText;
-                }
+                if (audio.id === 'audio1') { btn.innerHTML = '▶︎ Слушать историю'; btn.classList.remove('playing'); }
+                else { const originalText = audio.id === 'audio2' ? '▶︎ Слушать историю художника' : '▶︎ Слушать о технике художника'; btn.innerHTML = originalText; }
             });
         });
 
@@ -510,14 +286,14 @@
                 ticking = true;
             }
         });
-        
+
         function getRotation(el) {
             if (el.classList.contains('photo4')) return 'rotate(-2deg)';
             if (el.classList.contains('photo1')) return 'rotate(1.5deg)';
             if (el.classList.contains('photo2')) return 'rotate(-1deg)';
             if (el.classList.contains('photo3')) return 'rotate(2deg)';
-            if (el.classList.contains('photo5')) return 'rotate(-2.5deg)'; 
-            if (el.classList.contains('photo6')) return 'rotate(1.8deg)'; 
+            if (el.classList.contains('photo5')) return 'rotate(-2.5deg)';
+            if (el.classList.contains('photo6')) return 'rotate(1.8deg)';
             return 'rotate(0)';
         }
 
@@ -525,11 +301,8 @@
         const foregroundImg = document.getElementById('foregroundImg');
         slider.addEventListener('input', (e) => {
             foregroundImg.style.width = `${e.target.value}%`;
-            if(e.target.value == 100) {
-                foregroundImg.style.borderRight = "none";
-            } else {
-                foregroundImg.style.borderRight = "3px solid var(--frame-color)"; 
-            }
+            if(e.target.value == 100) { foregroundImg.style.borderRight = "none"; }
+            else { foregroundImg.style.borderRight = "3px solid var(--frame-color)"; }
         });
     </script>
 </body>
